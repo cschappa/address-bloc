@@ -13,6 +13,7 @@ class MenuController
     puts "2 - Create an entry"
     puts "3 - Search for an entry"
     puts "4 - Import entries from a CSV"
+    puts "8 - Nukem (delete all entries)"
     puts "5 - Exit"
     print "Enter you selection: "
 
@@ -39,6 +40,10 @@ class MenuController
     when 5
       puts "Good-bye"
       exit(0)
+    when 8
+      system "clear"
+      nukem_all
+      main_menu
     else
       system "clear"
       puts "Sorry, that entry is not valid"
@@ -140,6 +145,24 @@ class MenuController
   def delete_entry(entry)
      @address_book.entries.delete(entry)
      puts "#{entry.name} has been deleted"
+  end
+
+  def nukem_all
+    puts "Are you sure you want to delete all entries?"
+    print "Enter 'Y' to delete all entries, any other key to return to main menu: "
+
+    selection = gets.chomp
+    system "clear"
+
+    if selection == "Y"
+      @address_book.entries.clear
+    else
+      puts "Nothing was deleted"
+      main_menu
+    end
+
+    puts "All entries have been deleted"
+
   end
 
   def edit_entry(entry)
